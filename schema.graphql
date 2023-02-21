@@ -14,7 +14,7 @@ input BookInput {
 }
 
 type Mutation {
-    addBook(book: BookInput!) : Boolean
+    addBook(book: BookInput!) : Book
 }
 
 type Query {

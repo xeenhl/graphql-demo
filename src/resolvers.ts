@@ -29,19 +29,20 @@ export const resolvers = {
     Query: {
         books: () => books,
         authorBooks: (parent, args) => books.filter(book => {
-            console.log("calling Books service")
             return book.author == args.id
         })
     },
     Mutation: {
         addBook: (parent, args) => {
-            let id = Math.random().toString()
-            if(args.input.author!!) {
-                authros.push({id: id, name: args.input.author})
+            let id = generateId()
+            if(args.book.author!!) {
+                authros.push({id: id, name: args.book.author})
             }
-            if(args.input.title!!) {
-                books.push({title: args.input.title, author: id})
+            if(args.book.title!!) {
+                books.push({title: args.book.title, author: id})
             }
+
+            return books.filter( book => book.author == id)[0]
         }
 
     },
@@ -53,3 +54,9 @@ export const resolvers = {
     }
 
 };
+
+function generateId() {
+    let min = Math.ceil(102)
+    let max = Math.floor(10001)
+    return Math.floor(Math.random() * (max - min) + min).toString()
+}
